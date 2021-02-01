@@ -1,7 +1,5 @@
 package com.googlecode.gtalksms.panels;
 
-import java.util.ArrayList;
-
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -11,24 +9,24 @@ import android.content.ServiceConnection;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.ActionBar.Tab;
-import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.Window;
-import com.googlecode.gtalksms.tools.Log;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBar.Tab;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
+
 import com.googlecode.gtalksms.MainService;
 import com.googlecode.gtalksms.MainService.LocalBinder;
 import com.googlecode.gtalksms.R;
@@ -39,11 +37,14 @@ import com.googlecode.gtalksms.panels.tabs.CommandsTabFragment;
 import com.googlecode.gtalksms.panels.tabs.ConnectionStatusTabFragment;
 import com.googlecode.gtalksms.panels.tabs.ConnectionTabFragment;
 import com.googlecode.gtalksms.panels.tabs.HelpTabFragment;
+import com.googlecode.gtalksms.tools.Log;
 import com.googlecode.gtalksms.tools.StringFmt;
 import com.googlecode.gtalksms.tools.Tools;
 import com.googlecode.gtalksms.xmpp.XmppFriend;
 
-public class MainActivity extends SherlockFragmentActivity {
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity {
     
     public class TabListener implements ActionBar.TabListener {
         private final ViewPager mPager;
@@ -64,9 +65,9 @@ public class MainActivity extends SherlockFragmentActivity {
     
     public static class TabAdapter extends FragmentPagerAdapter {
         final ActionBar mActionBar;
-        final ArrayList<SherlockFragment> mFragments;
+        final ArrayList<Fragment> mFragments;
         
-        public TabAdapter(FragmentManager fm, ActionBar actionBar, ArrayList<SherlockFragment> fragments) {
+        public TabAdapter(FragmentManager fm, ActionBar actionBar, ArrayList<Fragment> fragments) {
             super(fm);
             mActionBar = actionBar;
             mFragments = fragments;
@@ -82,7 +83,7 @@ public class MainActivity extends SherlockFragmentActivity {
         }
 
         @Override
-        public android.support.v4.app.Fragment getItem(int position) {
+        public Fragment getItem(int position) {
             if (position >= mFragments.size()) {
                 return mFragments.get(mFragments.size() - 1);
             } 
@@ -103,7 +104,7 @@ public class MainActivity extends SherlockFragmentActivity {
     private final CommandsTabFragment mCommandsTabFragment = new CommandsTabFragment();
     private final HelpTabFragment mHelpTabFragment = new HelpTabFragment();
     private final ConnectionStatusTabFragment mConnectionStatusTabFragment = new ConnectionStatusTabFragment();
-    private final ArrayList<SherlockFragment> mFragments = new ArrayList<SherlockFragment>();
+    private final ArrayList<Fragment> mFragments = new ArrayList<Fragment>();
     
     private final BroadcastReceiver mXmppreceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
@@ -142,7 +143,7 @@ public class MainActivity extends SherlockFragmentActivity {
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        this.setTheme(com.actionbarsherlock.R.style.Theme_Sherlock);
+        //this.setTheme(R.style.Theme.AppCompat);
         super.onCreate(savedInstanceState);
 
         mSettingsManager = SettingsManager.getSettingsManager(getApplicationContext());
@@ -151,7 +152,7 @@ public class MainActivity extends SherlockFragmentActivity {
         setTitle(StringFmt.Style("GTalkSMS " + Tools.getVersionName(getBaseContext()), Typeface.BOLD));
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
  
-        setSupportProgressBarIndeterminateVisibility(false);
+        setProgressBarIndeterminateVisibility(false);
         setContentView(R.layout.tab_container);
         
         mActionBar = getSupportActionBar();
@@ -248,7 +249,7 @@ public class MainActivity extends SherlockFragmentActivity {
     
     private void updateStatus(int status, String action) {
         mConnectionTabFragment.updateStatus(status, action);
-        setSupportProgressBarIndeterminateVisibility(false);
+        setProgressBarIndeterminateVisibility(false);
         switch (status) {
             case XmppManager.CONNECTED:
                 mActionBar.setIcon(R.drawable.icon_green);
@@ -258,7 +259,7 @@ public class MainActivity extends SherlockFragmentActivity {
                 break;
             case XmppManager.CONNECTING:
             case XmppManager.DISCONNECTING:
-                setSupportProgressBarIndeterminateVisibility(true);
+                setProgressBarIndeterminateVisibility(true);
                 mActionBar.setIcon(R.drawable.icon_orange);
                 break;
             case XmppManager.WAITING_TO_CONNECT:

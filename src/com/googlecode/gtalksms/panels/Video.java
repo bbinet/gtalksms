@@ -1,9 +1,5 @@
 package com.googlecode.gtalksms.panels;
 
-import java.io.File;
-import java.util.GregorianCalendar;
-
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Camera;
@@ -14,15 +10,19 @@ import android.media.MediaRecorder.OnInfoListener;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import com.googlecode.gtalksms.tools.Log;
 import com.googlecode.gtalksms.R;
 import com.googlecode.gtalksms.SettingsManager;
+import com.googlecode.gtalksms.tools.Log;
 import com.googlecode.gtalksms.tools.Tools;
 
-public class Video extends Activity implements SurfaceHolder.Callback {
+import java.io.File;
+import java.util.GregorianCalendar;
+
+public class Video extends AppCompatActivity implements SurfaceHolder.Callback {
 
     public final static String VIDEO_START = "com.googlecode.gtalksms.action.VIDEO_START";
     public final static String VIDEO_STOP = "com.googlecode.gtalksms.action.VIDEO_STOP";

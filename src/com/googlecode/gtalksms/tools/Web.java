@@ -1,6 +1,7 @@
 package com.googlecode.gtalksms.tools;
 
 import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -9,8 +10,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-
-import org.apache.http.util.ByteArrayBuffer;
 
 import android.content.Context;
 
@@ -59,15 +58,14 @@ public class Web {
             URLConnection ucon = url.openConnection();
             InputStream is = ucon.getInputStream();
             BufferedInputStream bis = new BufferedInputStream(is);
-
-            ByteArrayBuffer baf = new ByteArrayBuffer(50);
-            int current;
-            while ((current = bis.read()) != -1) {
-                baf.append((byte) current);
+            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+            byte[] data = new byte[50];
+            int current = 0;
+            while ((current = bis.read(data,0,data.length)) != -1) {
+                buffer.write(data,0,current);
             }
-
             FileOutputStream fos = new FileOutputStream(file);
-            fos.write(baf.toByteArray());
+            fos.write(buffer.toByteArray());
             fos.close();
             Log.d("Downloaded in " + ((System.currentTimeMillis() - startTime) / 1000) + " sec");
 

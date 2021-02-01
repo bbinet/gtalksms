@@ -1,15 +1,10 @@
 package com.googlecode.gtalksms.panels.tabs;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
-
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +21,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockFragment;
 import com.googlecode.gtalksms.MainService;
 import com.googlecode.gtalksms.R;
 import com.googlecode.gtalksms.cmd.Cmd;
@@ -34,7 +28,13 @@ import com.googlecode.gtalksms.cmd.CommandHandlerBase;
 import com.googlecode.gtalksms.panels.tools.AutoClickEditorActionListener;
 import com.googlecode.gtalksms.tools.StringFmt;
 
-public class CommandsTabFragment extends SherlockFragment {
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Set;
+
+public class CommandsTabFragment extends Fragment {
     private ListView mListViewCommands;
     private EditText mEditTextCommand;
     private Button mButtonSend;
@@ -53,7 +53,7 @@ public class CommandsTabFragment extends SherlockFragment {
         mListViewCommands.setOnItemClickListener( new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final Cmd cmd = (Cmd)parent.getItemAtPosition(position);
-                final Dialog dialog = new Dialog(getSherlockActivity());
+                final Dialog dialog = new Dialog(getActivity());
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.tab_commands_dialog);
                 
@@ -80,7 +80,7 @@ public class CommandsTabFragment extends SherlockFragment {
                 cmdHelp.setText(cmd.getHelpMsg());
                 
                 ListView subCommands = (ListView) dialog.findViewById(R.id.ListViewCommands);
-                subCommands.setAdapter(new SubCmdListAdapter(getSherlockActivity(), R.layout.tab_commands_sub_item, cmd));
+                subCommands.setAdapter(new SubCmdListAdapter((AppCompatActivity) getActivity(), R.layout.tab_commands_sub_item, cmd));
 
                 Button buttonClose = (Button) dialog.findViewById(R.id.buttonOk);
                 buttonClose.setOnClickListener(new View.OnClickListener() {
@@ -138,7 +138,7 @@ public class CommandsTabFragment extends SherlockFragment {
         } 
           
         if (mListViewCommands != null ) {
-            mListViewCommands.setAdapter(new CmdListAdapter(getActivity(), R.layout.tab_commands_item, mListCommands));
+            mListViewCommands.setAdapter(new CmdListAdapter((AppCompatActivity) getActivity(), R.layout.tab_commands_item, mListCommands));
         }
     }
     
@@ -158,7 +158,7 @@ public class CommandsTabFragment extends SherlockFragment {
         
         final LayoutInflater mInflater;
         
-        public CmdListAdapter(Activity activity, int textViewResourceId, List<Cmd> list) {
+        public CmdListAdapter(AppCompatActivity activity, int textViewResourceId, List<Cmd> list) {
             super(activity, textViewResourceId, list);
             mInflater = activity.getLayoutInflater();
         }
@@ -204,7 +204,7 @@ public class CommandsTabFragment extends SherlockFragment {
         final LayoutInflater mInflater;
         final Cmd mCmd;
         
-        public SubCmdListAdapter(Activity activity, int textViewResourceId, Cmd cmd) {
+        public SubCmdListAdapter(AppCompatActivity activity, int textViewResourceId, Cmd cmd) {
             super(activity, textViewResourceId, cmd.getSubCmds());
             mInflater = activity.getLayoutInflater();
             mCmd = cmd;

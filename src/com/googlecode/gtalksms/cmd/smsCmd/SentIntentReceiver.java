@@ -1,15 +1,15 @@
 package com.googlecode.gtalksms.cmd.smsCmd;
 
-import java.util.Map;
+import android.content.Context;
+import androidx.appcompat.app.AppCompatActivity;
+import android.telephony.SmsManager;
 
-import com.googlecode.gtalksms.tools.Log;
 import com.googlecode.gtalksms.MainService;
 import com.googlecode.gtalksms.R;
 import com.googlecode.gtalksms.databases.SMSHelper;
+import com.googlecode.gtalksms.tools.Log;
 
-import android.app.Activity;
-import android.content.Context;
-import android.telephony.SmsManager;
+import java.util.Map;
 
 public class SentIntentReceiver extends SmsPendingIntentReceiver {
 
@@ -30,7 +30,7 @@ public class SentIntentReceiver extends SmsPendingIntentReceiver {
             smsSendTo = s.getNumber();
         }
 
-        if (res == Activity.RESULT_OK && sentIntComplete) {
+        if (res == AppCompatActivity.RESULT_OK && sentIntComplete) {
             send(context.getString(R.string.chat_sms_sent_to, s.getShortenedMessage(), smsSendTo));
         } else if (s.getResSentIntent() == -1) {
             switch (res) {
@@ -59,7 +59,7 @@ public class SentIntentReceiver extends SmsPendingIntentReceiver {
         answerTo = null;
         Log.w("sms in smsMap missing");
         switch (res) {
-        case Activity.RESULT_OK:
+        case AppCompatActivity.RESULT_OK:
             send(context.getString(R.string.chat_sms_sent));
             break;
         case SmsManager.RESULT_ERROR_GENERIC_FAILURE:

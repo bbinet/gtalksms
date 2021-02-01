@@ -14,13 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockFragment;
+import androidx.fragment.app.Fragment;
 import com.googlecode.gtalksms.R;
 import com.googlecode.gtalksms.tools.StringFmt;
 import com.googlecode.gtalksms.tools.Tools;
 import com.googlecode.gtalksms.tools.UrlToStringDownloader;
 
-public class HelpTabFragment extends SherlockFragment {
+public class HelpTabFragment extends Fragment {
     private static final URL[] sUrls;
     private TextView mTextViewConsole;
     

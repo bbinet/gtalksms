@@ -1,13 +1,13 @@
 package com.googlecode.gtalksms.receivers;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.googlecode.gtalksms.tools.Tools;
 
-public class UrlActivity extends Activity {
+public class UrlActivity extends AppCompatActivity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

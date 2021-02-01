@@ -1,16 +1,12 @@
 package com.googlecode.gtalksms.panels.tabs;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.TreeMap;
-
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.os.Bundle;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,14 +26,18 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockFragment;
 import com.googlecode.gtalksms.R;
 import com.googlecode.gtalksms.SettingsManager;
 import com.googlecode.gtalksms.panels.tools.AutoClickEditorActionListener;
 import com.googlecode.gtalksms.xmpp.XmppBuddies;
 import com.googlecode.gtalksms.xmpp.XmppFriend;
 
-public class BuddiesTabFragment extends SherlockFragment {
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.TreeMap;
+
+public class BuddiesTabFragment extends Fragment {
     private ListView mBuddiesListView;
     private EditText mEditTextBuddy;
     private Button mButtonAdd;
@@ -77,7 +77,7 @@ public class BuddiesTabFragment extends SherlockFragment {
             }
         });
 
-        mBuddiesListView.setAdapter(mCurrentBuddyAdapter = new BuddyAdapter(getSherlockActivity(), R.layout.tab_buddies_item, mAdapterArray));
+        mBuddiesListView.setAdapter(mCurrentBuddyAdapter = new BuddyAdapter((AppCompatActivity) getActivity(), R.layout.tab_buddies_item, mAdapterArray));
         mCurrentBuddyAdapter.sort(new Comparator<Buddy>() {
             public int compare(Buddy b1, Buddy b2) {
                 return b1.getName().compareToIgnoreCase(b2.getName());
@@ -225,7 +225,7 @@ public class BuddiesTabFragment extends SherlockFragment {
     public class BuddyAdapter extends ArrayAdapter<Buddy> {
         private final LayoutInflater mInflater;
 
-        public BuddyAdapter(Activity activity, int textViewResourceId, ArrayList<Buddy> buddies) {
+        public BuddyAdapter(AppCompatActivity activity, int textViewResourceId, ArrayList<Buddy> buddies) {
             super(activity, textViewResourceId, buddies);
             mInflater = activity.getLayoutInflater();
         }
@@ -273,7 +273,7 @@ public class BuddiesTabFragment extends SherlockFragment {
                         locations.add(map);
                     }
 
-                    final Dialog dialog = new Dialog(getSherlockActivity());
+                    final Dialog dialog = new Dialog(getActivity());
                     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                     dialog.setContentView(R.layout.tab_buddies_dialog);
 
@@ -284,7 +284,7 @@ public class BuddiesTabFragment extends SherlockFragment {
                     userId.setText(buddy.getUserId());
 
                     ListView lvLocations = (ListView) dialog.findViewById(R.id.ListViewLocations);
-                    lvLocations.setAdapter(new SimpleAdapter(getSherlockActivity().getBaseContext(), locations, R.layout.tab_buddies_location, new String[] { "state", "name",
+                    lvLocations.setAdapter(new SimpleAdapter(getActivity().getBaseContext(), locations, R.layout.tab_buddies_location, new String[] { "state", "name",
                             "status" }, new int[] { R.id.buddyState, R.id.buddyName, R.id.buddyStatus }));
 
                     Button buttonClose = (Button) dialog.findViewById(R.id.buttonOk);

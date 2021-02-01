@@ -1,12 +1,12 @@
 package com.googlecode.gtalksms.panels;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.googlecode.gtalksms.R;
 import com.googlecode.gtalksms.tools.Logs;
@@ -30,7 +30,7 @@ import com.googlecode.gtalksms.tools.Tools;
  * limitations under the License.
  */
 
-public class LogCollector extends Activity {
+public class LogCollector extends AppCompatActivity {
     public final static String LINE_SEPARATOR = System.getProperty("line.separator");
     private ProgressDialog mProgressDialog;
     private CollectLogTask mCollectLogTask;

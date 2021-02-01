@@ -1,14 +1,14 @@
 package com.googlecode.gtalksms.cmd.smsCmd;
 
-import java.util.Map;
+import android.content.Context;
+import androidx.appcompat.app.AppCompatActivity;
 
-import com.googlecode.gtalksms.tools.Log;
 import com.googlecode.gtalksms.MainService;
 import com.googlecode.gtalksms.R;
 import com.googlecode.gtalksms.databases.SMSHelper;
+import com.googlecode.gtalksms.tools.Log;
 
-import android.app.Activity;
-import android.content.Context;
+import java.util.Map;
 
 public class DeliveredIntentReceiver extends SmsPendingIntentReceiver {
 
@@ -29,10 +29,10 @@ public class DeliveredIntentReceiver extends SmsPendingIntentReceiver {
             smsSendTo = s.getNumber();
         }
 
-        if (res == Activity.RESULT_OK && delIntComplete) {
+        if (res == AppCompatActivity.RESULT_OK && delIntComplete) {
             send(context.getString(R.string.chat_sms_delivered_to, s.getShortenedMessage(), smsSendTo));
         } else if (s.getResSentIntent() == -1) {
-            if(res == Activity.RESULT_CANCELED) {
+            if(res == AppCompatActivity.RESULT_CANCELED) {
                 send(context.getString(R.string.chat_sms_not_delivered_to, s.getShortenedMessage(), smsSendTo));
             }
             s.setResSentIntent(res);
@@ -48,10 +48,10 @@ public class DeliveredIntentReceiver extends SmsPendingIntentReceiver {
         answerTo = null;
         Log.w("sms in smsMap missing");
         switch (res) {
-        case Activity.RESULT_OK:
+        case AppCompatActivity.RESULT_OK:
             send(context.getString(R.string.chat_sms_delivered));
             break;
-        case Activity.RESULT_CANCELED:
+        case AppCompatActivity.RESULT_CANCELED:
             send(context.getString(R.string.chat_sms_not_delivered));
             break;
         }

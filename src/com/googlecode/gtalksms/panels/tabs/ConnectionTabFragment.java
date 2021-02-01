@@ -10,7 +10,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockFragment;
+import androidx.fragment.app.Fragment;
 import com.googlecode.gtalksms.MainService;
 import com.googlecode.gtalksms.R;
 import com.googlecode.gtalksms.SettingsManager;
@@ -18,7 +18,7 @@ import com.googlecode.gtalksms.XmppManager;
 import com.googlecode.gtalksms.tools.Tools;
 import com.googlecode.gtalksms.widgets.SwitchCheckBoxCompat;
 
-public class ConnectionTabFragment extends SherlockFragment {
+public class ConnectionTabFragment extends Fragment {
     
     private SettingsManager mSettingsMgr;
     private EditText mEditTextLogin;

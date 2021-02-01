@@ -1,8 +1,5 @@
 package com.googlecode.gtalksms.panels.tabs;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smackx.ping.PingManager;
 
@@ -18,12 +15,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockFragment;
+import androidx.fragment.app.Fragment;
 import com.googlecode.gtalksms.tools.Log;
 import com.googlecode.gtalksms.MainService;
 import com.googlecode.gtalksms.R;
 
-public class ConnectionStatusTabFragment extends SherlockFragment {
+public class ConnectionStatusTabFragment extends Fragment {
 
     private Button mSendPingButton;
     private Button mRefreshMemoryUsageButton;

@@ -1,8 +1,8 @@
 package com.googlecode.gtalksms.receivers;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.googlecode.gtalksms.tools.Tools;
 import com.googlecode.gtalksms.xmpp.XmppMsg;
@@ -12,7 +12,7 @@ import com.googlecode.gtalksms.xmpp.XmppMsg;
  * @author Florian Schmaus fschmaus@gmail.com
  *
  */
-public class SendIntentActivity extends Activity {
+public class SendIntentActivity extends AppCompatActivity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

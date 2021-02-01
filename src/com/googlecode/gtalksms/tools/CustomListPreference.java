@@ -1,15 +1,13 @@
 package com.googlecode.gtalksms.tools;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-
 import android.app.Dialog;
-import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.preference.ListPreference;
 import android.preference.PreferenceManager;
+//import androidx.appcompat.app.AlertDialog.Builder;
+import android.app.AlertDialog.Builder;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +19,9 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 
 import com.googlecode.gtalksms.R;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 public class CustomListPreference extends ListPreference
 {   

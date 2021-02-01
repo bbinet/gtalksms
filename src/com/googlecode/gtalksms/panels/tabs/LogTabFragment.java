@@ -17,12 +17,12 @@ import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockFragment;
+import androidx.fragment.app.Fragment;
 import com.googlecode.gtalksms.R;
 import com.googlecode.gtalksms.tools.Log;
 import com.googlecode.gtalksms.tools.Logs;
 
-public class LogTabFragment extends SherlockFragment {
+public class LogTabFragment extends Fragment {
 
     private final static String LINE_SEPARATOR = System.getProperty("line.separator");
     private Button mButtonStartStop;

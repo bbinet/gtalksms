@@ -1,1 +1,1 @@
-include ':external-libs/MemorizingTrustManager', ':external-libs/ActionBarSherlock'
+include ':external-libs:MemorizingTrustManager'
