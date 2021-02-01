@@ -1,3 +1,6 @@
 [submodule "external-libs/MemorizingTrustManager"]
 	path = external-libs/MemorizingTrustManager
 	url = https://github.com/ge0rg/MemorizingTrustManager.git
+[submodule "external-libsMemorizingTrustManager"]
+	path = external-libsMemorizingTrustManager
+	url = https://github.com/ge0rg/MemorizingTrustManager.git
