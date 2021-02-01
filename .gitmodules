@@ -1,6 +1,3 @@
 [submodule "external-libs/MemorizingTrustManager"]
 	path = external-libs/MemorizingTrustManager
 	url = https://github.com/ge0rg/MemorizingTrustManager.git
-[submodule "external-libs/ActionBarSherlock"]
-	path = external-libs/ActionBarSherlock
-	url = git://github.com/JakeWharton/ActionBarSherlock.git/actionbarsherlock
