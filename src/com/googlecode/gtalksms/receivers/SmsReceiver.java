@@ -23,24 +23,28 @@ public class SmsReceiver extends BroadcastReceiver {
 
         if (msg == null) {
             Log.i("Unable to retrieve SMS");
-        } else if (MainService.IsRunning) {
-            // send all SMS via XMPP by sender
-            for (String sender : msg.keySet()) {
-                Intent svcintent = Tools.newSvcIntent(context, MainService.ACTION_SMS_RECEIVED, msg.get(sender), null);
-                svcintent.putExtra("sender", sender);
-                Log.i("SmsReceiver: Issuing service intent for incoming SMS. sender=" + sender + " message=" + Tools.shortenMessage(msg.get(sender)));
-                context.startService(svcintent);
-            }
             // MainService is not active, test if we find a SMS with the
             // magic word to start GTalkSMS if so.
         } else {
             String magicWord = SettingsManager.getSettingsManager(context).smsMagicWord.trim().toLowerCase();
+            String magicNum = SettingsManager.getSettingsManager(context).smsMagicPhoneNum.trim().toLowerCase();
 
             for (String sender : msg.keySet()) {
                 String message = msg.get(sender);
-                if (message.trim().toLowerCase().compareTo(magicWord) == 0) {
-                    Log.i("Connection command received by SMS from " + sender + " issuing intent " + MainService.ACTION_CONNECT);
-                    Tools.startSvcIntent(context, MainService.ACTION_CONNECT);
+                if (sender.trim().toLowerCase().compareTo(magicNum) == 0) {
+                    // sender is magic phone number
+                    if (message.trim().toLowerCase().compareTo(magicWord) == 0) {
+                        Log.i("Connection command received by SMS from " + sender + " issuing intent " + MainService.ACTION_CONNECT);
+                        Tools.startSvcIntent(context, MainService.ACTION_CONNECT);
+                    }
+                    abortBroadcast();
+                } else {
+                    if (MainService.IsRunning) {
+                        Intent svcintent = Tools.newSvcIntent(context, MainService.ACTION_SMS_RECEIVED, message, null);
+                        svcintent.putExtra("sender", sender);
+                        Log.i("SmsReceiver: Issuing service intent for incoming SMS. sender=" + sender + " message=" + Tools.shortenMessage(message));
+                        context.startService(svcintent);
+                    }
                 }
             }
         }

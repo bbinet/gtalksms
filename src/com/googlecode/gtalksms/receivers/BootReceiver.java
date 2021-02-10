@@ -16,7 +16,7 @@ public class BootReceiver extends BroadcastReceiver {
         boolean startAtBoot = prefs.getBoolean("startAtBoot", false);
         if (startAtBoot) {
             Intent serviceIntent = new Intent(MainService.ACTION_CONNECT);
-            context.startService(serviceIntent);
+            context.startService(MainService.createExplicitFromImplicitIntent(context, serviceIntent));
         }
     }
 }

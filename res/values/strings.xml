@@ -346,6 +346,8 @@
     <string name="pref_app_sms_separate_help">When searching SMS, GTalkSMS can reply with only 1 big Xmpp messages or 1 per SMS</string>
     <string name="pref_app_sms_start_key">Magic SMS message</string>
     <string name="pref_app_sms_start_key_help">Magic SMS message body to start GTalkSMS</string>
+    <string name="pref_app_sms_start_num">Magic SMS phone number</string>
+    <string name="pref_app_sms_start_num_help">Magic SMS phone number to start GTalkSMS</string>
     <string name="pref_app_select_status_icon">Status Bar Icons</string>
     <string name="pref_app_select_status_icon_help">Select icons that will appear in notification bar</string>
     <string name="pref_app_show_status_icon">Status notification icon</string>

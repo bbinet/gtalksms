@@ -119,6 +119,7 @@ public class SettingsManager {
     public boolean smsReplySeparate;
     public boolean markSmsReadOnReply;
     public String smsMagicWord;
+    public String smsMagicPhoneNum;
     
     // locale
     public Locale locale;
@@ -397,7 +398,8 @@ public class SettingsManager {
             notifySmsInSameConversation = true;
             notifySmsInChatRooms = false;
         }
-        smsMagicWord = getString("smsMagicWord", "GTalkSMS");
+        smsMagicWord = getString("smsMagicWord", "ping");
+        smsMagicPhoneNum = getString("smsMagicPhoneNum", "");
         notifyInMuc = getBoolean("notifyInMuc", false); 
         smsReplySeparate = getBoolean("smsReplySeparate", false);
         _connectOnMainScreenStartup = getBoolean("connectOnMainscreenShow", false);

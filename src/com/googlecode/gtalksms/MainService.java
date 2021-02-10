@@ -1,5 +1,6 @@
 package com.googlecode.gtalksms;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -9,9 +10,12 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Handler;
@@ -407,7 +411,7 @@ public class MainService extends Service {
             int currentStatus = (sXmppMgr == null) ? XmppManager.DISCONNECTED : sXmppMgr.getConnectionStatus();
             if (lastStatus != currentStatus && lastStatus != XmppManager.DISCONNECTING) {
                 Log.i("onCreate(): issuing connect intent because we are on gingerbread (or higher). " + "lastStatus is " + lastStatus + " and currentStatus is " + currentStatus);
-                startService(new Intent(MainService.ACTION_CONNECT));
+                startService(MainService.createExplicitFromImplicitIntent(getBaseContext(), new Intent(MainService.ACTION_CONNECT)));
                 CrashedStartCounter.getInstance(this).count();
             }
         }
@@ -423,7 +427,8 @@ public class MainService extends Service {
             // this null intent behavior is only for SDK < 9
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.GINGERBREAD) {
                 CrashedStartCounter.getInstance(this).count();
-                startService(new Intent(MainService.ACTION_CONNECT));
+                startService(MainService.createExplicitFromImplicitIntent(getBaseContext(), new Intent(MainService.ACTION_CONNECT)));
+
             } else {
                 Log.w("onStartCommand() null intent with Gingerbread or higher");
             }
@@ -776,5 +781,30 @@ public class MainService extends Service {
         if (!sWl.isHeld()) {
             sWl.acquire();
         }
+    }
+
+    public static Intent createExplicitFromImplicitIntent(Context context, Intent implicitIntent) {
+        // Retrieve all services that can match the given intent
+        PackageManager pm = context.getPackageManager();
+        List<ResolveInfo> resolveInfo = pm.queryIntentServices(implicitIntent, 0);
+
+        // Make sure only one match was found
+        if (resolveInfo == null || resolveInfo.size() != 1) {
+            return null;
+        }
+
+        // Get component info and create ComponentName
+        ResolveInfo serviceInfo = resolveInfo.get(0);
+        String packageName = serviceInfo.serviceInfo.packageName;
+        String className = serviceInfo.serviceInfo.name;
+        ComponentName component = new ComponentName(packageName, className);
+
+        // Create a new intent. Use the old one for extras and such reuse
+        Intent explicitIntent = new Intent(implicitIntent);
+
+        // Set the component to be explicit
+        explicitIntent.setComponent(component);
+
+        return explicitIntent;
     }
 }

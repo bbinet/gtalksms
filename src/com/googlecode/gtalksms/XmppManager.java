@@ -362,9 +362,8 @@ public class XmppManager {
      */
     private void initConnection() {
         XMPPTCPConnection connection;
-
         // assert we are only ever called from one thread
-        assert (!Thread.currentThread().getName().equals(MainService.SERVICE_THREAD_NAME));
+        //assert (!(Thread.currentThread().getName().equals(MainService.SERVICE_THREAD_NAME)));
 
         // everything is ready for a connection attempt
         updateStatus(CONNECTING, "");
@@ -652,6 +651,11 @@ public class XmppManager {
             msg = new Message(to);
             // check if "to" is an known MUC JID
             muc = mXmppMuc.getRoomViaRoomName(to);
+        }
+
+        if (mConnection == null) {
+            Log.e("Send message error. mConnection is null");
+            return false;
         }
         msg.setFrom(mConnection.getUser());
         msg.setBody(mSettings.formatResponses ? message.generateFmtTxt() : message.generateTxt());

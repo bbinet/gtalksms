@@ -212,7 +212,11 @@ public class CameraCmd extends CommandHandlerBase {
 
     private void setMaxPictureSize(Camera.Parameters parameters) {
         try {
-            Camera.Size size = parameters.getSupportedPictureSizes().get(0);
+            Camera.Size size = parameters.getSupportedPreviewSizes().get(0);
+            Log.e("Setting preview size to " + size.width + "x" + size.height);
+            parameters.setPreviewSize(size.width, size.height);
+
+            size = parameters.getSupportedPictureSizes().get(0);
             Log.e("Setting picture size to " + size.width + "x" + size.height);
             parameters.setPictureSize(size.width, size.height);
         } catch (Exception e) {

@@ -25,7 +25,7 @@ public class PowerReceiver extends BroadcastReceiver {
         if (connected && settings.startOnPowerConnected) {
             // Prepare and send a connect intent, which will also start the service
             Intent serviceIntent = new Intent(MainService.ACTION_CONNECT);
-            context.startService(serviceIntent);
+            context.startService(MainService.createExplicitFromImplicitIntent(context, serviceIntent));
         } else if (DisconnectHandler != null && settings.stopOnPowerDisconnected) {
             long delayMillis = settings.stopOnPowerDelay * 60 * 1000;
             Log.d("Posting delayed disconnect in " + settings.stopOnPowerDelay + " minutes");
@@ -46,7 +46,7 @@ public class PowerReceiver extends BroadcastReceiver {
             Intent serviceIntent = new Intent(MainService.ACTION_CONNECT);
             serviceIntent.putExtra("disconnect", true);
             Log.d("Issueing disconnect intent because of delayed disconnect");
-            mContext.startService(serviceIntent);
+            mContext.startService(MainService.createExplicitFromImplicitIntent(mContext, serviceIntent));
         }
         
     }

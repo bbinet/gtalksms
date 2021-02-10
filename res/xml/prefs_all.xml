@@ -45,7 +45,9 @@
             <com.googlecode.gtalksms.tools.EditIntegerPreference android:key="smsNumber" android:summary="@string/pref_app_sms_number_help" android:title="@string/pref_app_sms_number" android:defaultValue="5" android:numeric="integer" />
             <CheckBoxPreference android:key="smsReplySeparate" android:title="@string/pref_app_sms_separate" android:summary="@string/pref_app_sms_separate_help" android:defaultValue="false" />
             <CheckBoxPreference android:key="markSmsReadOnReply" android:title="@string/pref_app_sms_mark_read_on_send" android:summary="@string/pref_app_sms_mark_read_on_send_help" android:defaultValue="false" />
-            <EditTextPreference android:key="smsMagicWord" android:defaultValue="GTalkSMS" android:title="@string/pref_app_sms_start_key" android:summary="@string/pref_app_sms_start_key_help" />
+            <EditTextPreference android:key="smsMagicWord" android:defaultValue="ping" android:title="@string/pref_app_sms_start_key" android:summary="@string/pref_app_sms_start_key_help" />
+            <EditTextPreference android:key="smsMagicPhoneNum" android:defaultValue="" android:title="@string/pref_app_sms_start_num" android:summary="@string/pref_app_sms_start_num_help" />
+
         </PreferenceScreen>
         <PreferenceScreen android:title="@string/pref_app_advanced">
             <CheckBoxPreference android:key="debugLog" android:title="@string/pref_app_enable_debug" android:summary="@string/pref_app_enable_debug_help" android:defaultValue="false" />
