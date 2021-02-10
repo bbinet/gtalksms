@@ -41,6 +41,7 @@
     <uses-permission android:name="android.permission.WRITE_SMS" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
     <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
+    <uses-permission android:name="android.permission.START_ACTIVITIES_FROM_BACKGROUND" />
 
     <application 
         android:icon="@drawable/icon_green" 
@@ -112,8 +113,8 @@
         </receiver>
         <receiver android:name=".receivers.SmsReceiver">
             <intent-filter>
-                <!-- Receiver priority is set to SYSTEM_HIGH + 10 -->
-                <action android:name="android.provider.Telephony.SMS_RECEIVED" android:priority="1010" />
+                <!-- Receiver highest priority is set to SYSTEM_HIGH - 1 -->
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" android:priority="999" />
             </intent-filter>
         </receiver>
         <receiver android:name=".receivers.MmsReceiver">
