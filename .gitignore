@@ -1,5 +1,6 @@
 local.properties
 keystore.properties
+GTalkSMS.xml
 todo
 .gradle/*
 build/
