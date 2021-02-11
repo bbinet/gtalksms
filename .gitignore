@@ -5,6 +5,7 @@ todo
 build/
 bin/
 gen/
+release/
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/androidstudio

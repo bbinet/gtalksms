@@ -36,15 +36,13 @@ android {
         }
     }
 
-    /*
     afterEvaluate { project ->
         def propsFile = rootProject.file('keystore.properties')
         def props = new Properties()
         props.load(new FileInputStream(propsFile))
         android.signingConfigs['config'].storeFile = file(props['storeFile'])
-        android.signingConfigs['config'].storePassword = props['storePassword']
+        android.signingConfigs['config'].keyAlias = props['keyAlias']
     }
-    */
 
     compileSdkVersion 28
     buildToolsVersion "29.0.2"
