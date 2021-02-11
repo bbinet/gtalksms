@@ -38,6 +38,7 @@ import com.googlecode.gtalksms.panels.tabs.ConnectionStatusTabFragment;
 import com.googlecode.gtalksms.panels.tabs.ConnectionTabFragment;
 import com.googlecode.gtalksms.panels.tabs.HelpTabFragment;
 import com.googlecode.gtalksms.tools.Log;
+import com.googlecode.gtalksms.tools.PermissionUtility;
 import com.googlecode.gtalksms.tools.StringFmt;
 import com.googlecode.gtalksms.tools.Tools;
 import com.googlecode.gtalksms.xmpp.XmppFriend;
@@ -105,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
     private final HelpTabFragment mHelpTabFragment = new HelpTabFragment();
     private final ConnectionStatusTabFragment mConnectionStatusTabFragment = new ConnectionStatusTabFragment();
     private final ArrayList<Fragment> mFragments = new ArrayList<Fragment>();
+    private PermissionUtility permissionUtility;
     
     private final BroadcastReceiver mXmppreceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
@@ -140,11 +142,18 @@ public class MainActivity extends AppCompatActivity {
             mConnectionStatusTabFragment.unsetMainService();
         }
     };
-    
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         //this.setTheme(R.style.Theme.AppCompat);
         super.onCreate(savedInstanceState);
+
+        permissionUtility = new PermissionUtility(this);
+        if(permissionUtility.arePermissionsEnabled()){
+            Log.d("Permission granted 1");
+        } else {
+            permissionUtility.requestMultiplePermissions();
+        }
 
         mSettingsManager = SettingsManager.getSettingsManager(getApplicationContext());
         Log.initialize(mSettingsManager);
@@ -197,6 +206,14 @@ public class MainActivity extends AppCompatActivity {
                 mActionBar.getTabAt(index).select();
             }
         }); 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(permissionUtility.onRequestPermissionsResult(requestCode, permissions, grantResults)) {
+            Log.d("Permission granted 2");
+        }
     }
 
     @Override
